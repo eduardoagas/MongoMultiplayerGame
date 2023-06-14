@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerData
+public class PlayerData 
 {
    public string plummie_tag;
    public int collisions;
