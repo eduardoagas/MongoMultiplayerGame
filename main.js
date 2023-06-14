@@ -17,11 +17,6 @@ const client = new MongoClient(uri);
 
 var collection;
 
-server.post("/plummies", async (request, response, next) => {});
-server.get("/plummies", async (request, response, next) => {});
-server.get("/plummies/:id", async (request, response, next) => {});
-server.put("/plummies/:plummie_tag", async (request, response, next) => {});
-
 server.listen("3000", async () => {
     try {
         await client.connect();
@@ -35,6 +30,45 @@ server.listen("3000", async () => {
 server.post("/plummies", async (request, response, next) => {
     try {
         let result = await collection.insertOne(request.body);
+        response.send(result);
+    } catch (e) {
+        response.status(500).send({ message: e.message });
+    }
+});
+
+server.get("/plummies/:plummie_tag", async (request, response, next) => {
+    try {
+        let result = await collection.findOne({ "plummie_tag": request.params.plummie_tag });
+        response.send(result);
+    } catch (e) {
+        response.status(500).send({ message: e.message });
+    }
+});
+
+server.get("/plummies", async (request, response, next) => {
+    try {
+        let result = await collection.find({}).toArray();
+        response.send(result);
+    } catch (e) {
+        response.status(500).send({ message: e.message });
+    }
+});
+
+server.put("/plummies/:plummie_tag", async (request, response, next) => {
+    try {
+        let result = await collection.updateOne(
+            { "plummie_tag": request.params.plummie_tag },
+            { "$set": request.body }
+        );
+        response.send(result);
+    } catch (e) {
+        response.status(500).send({ message: e.message });
+    }
+});
+
+server.delete("/plummies/:plummie_tag", async (request, response, next) => {
+    try {
+        let result = await collection.deleteOne({ "plummie_tag": request.params.plummie_tag });
         response.send(result);
     } catch (e) {
         response.status(500).send({ message: e.message });

@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public class PlayerData
+{
+   public string plummie_tag;
+   public int collisions;
+   public int steps;
+
+  public string Stringfy(){
+    Debug.Log(JsonUtility.ToJson(this));
+    return JsonUtility.ToJson(this);
+  }
+  
+  public static PlayerData parse(string json){
+    return JsonUtility.FromJson<PlayerData>(json);
+  }
+
 }
