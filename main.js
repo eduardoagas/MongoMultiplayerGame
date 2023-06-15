@@ -19,6 +19,7 @@ var collection;
 
 server.listen("3000", async () => {
     try {
+        //try a console.log here?
         await client.connect();
         collection = client.db("plummeting-people").collection("plummies");
         collection.createIndex('plummie_tag');

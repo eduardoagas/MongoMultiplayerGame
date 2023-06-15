@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
          //playerData = GetComponent<PlayerData>();
          playerData.plummie_tag = "juju carente";
          //StartCoroutine(Upload(playerData.Stringfy()));
-         StartCoroutine(Download("nraboy", result => {
+         StartCoroutine(Download("juju carente", result => {
             Debug.Log("res = ");
             Debug.Log(result);
             playerDataNra = result; 
@@ -76,7 +76,8 @@ public class PlayerController : MonoBehaviour
     }
 
     IEnumerator Download(string id, System.Action<PlayerData> callback = null){
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:3000/plummies/" + id))
+        //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:3000/plummies/" + id))
+        using (UnityWebRequest request = UnityWebRequest.Get("http://15.228.251.185:3000/plummies/" + id))
         {
             yield return request.SendWebRequest();
 
@@ -94,7 +95,8 @@ public class PlayerController : MonoBehaviour
         }
     }
     IEnumerator Upload(string profile, System.Action<bool> callback = null){
-        using(UnityWebRequest request = new UnityWebRequest("http://localhost:3000/plummies", "POST")){
+        //using(UnityWebRequest request = new UnityWebRequest("http://localhost:3000/plummies", "POST")){
+            using(UnityWebRequest request = new UnityWebRequest("http://15.228.251.185:3000/plummies", "POST")){
             request.SetRequestHeader("Content-Type", "application/json");
             byte[] bodyRaw = Encoding.UTF8.GetBytes(profile);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
